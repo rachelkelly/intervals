@@ -18,9 +18,14 @@ while intervalsCount > 0:
     #print(running)
     time.sleep(runIntervals)
 
-    #walking = "Walk for {0} minutes".format(walkMin)
-    os.system('echo "Walking" | espeak')
-    #print(walking)
-    time.sleep(walkIntervals)
+    if intervalsCount == 1:
+        os.system('echo "You are done!  Good job!  Walk for 5 minutes." | espeak')
+    else:
+        #walking = "Walk for {0} minutes".format(walkMin)
+        os.system('echo "Walking" | espeak')
+        #print(walking)
+        time.sleep(walkIntervals)
+        #left = int(intervalsCount - 1) #these 2 lines are a good idea, but how to var replace?
+        #os.system('echo "You have {0} left" | espeak').format(left)
 
     intervalsCount -= 1

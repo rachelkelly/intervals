@@ -29,7 +29,6 @@ class RunIntervals(toga.App):
             on_press=self.runInt,
             style=Pack(padding=5)
         )
-        runNums = self.runInt
 
         #how long each interval  
         runLengthLabel = toga.Label(
@@ -80,8 +79,7 @@ class RunIntervals(toga.App):
             on_press=self.start,
             style=Pack(padding=5)
         )
-        
-        
+
 
         main_box.add(runIntBox)
         main_box.add(runIntButton)
@@ -92,8 +90,7 @@ class RunIntervals(toga.App):
         main_box.add(breakLengthBox)
         main_box.add(breakLengthButton)
 
-        
-#        if runNums: # and self.runLengthInput.value and self.breakLengthInput.value:
+        # would like to refresh and only display this once all 3 values have been entered
         main_box.add(startBox)
         main_box.add(startButton)
 
@@ -112,7 +109,6 @@ class RunIntervals(toga.App):
             'Hi there!',
             "You will be running {} intervals today.".format(runsNumber)
         )
-        return runsNumber
 
     def runLength(self, widget):        
         if self.runLengthInput.value:
@@ -124,7 +120,6 @@ class RunIntervals(toga.App):
             'Hi there!',
             "You will be running each interval at {} minutes.".format(runsLength)
         )
-        return runsLength
 
     def breakLength(self, widget):
         if self.breakLengthInput.value:
@@ -136,13 +131,14 @@ class RunIntervals(toga.App):
             'Hi there!',
             "Your breaks will be {} minute(s) long.".format(breaksLength)
         )
-        return breaksLength
 
     def start(self, widget):
-        if runNums:
-            loopNum = runNums
+        loopNum = 5
         while loopNum > 0:
-            print("run for {} minutes.").format(loopNum)
+            self.main_window.info_dialog(
+                'Message',
+                "Run for {} minutes.".format(loopNum)
+            )
             loopNum -= 1
 
 def main():

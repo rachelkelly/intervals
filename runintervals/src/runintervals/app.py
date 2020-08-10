@@ -6,7 +6,7 @@ from toga.style import Pack
 from toga.style.pack import COLUMN, ROW
 
 
-class HelloWorld(toga.App):
+class RunIntervals(toga.App):
 
     def startup(self):
         main_box = toga.Box(style=Pack(direction=COLUMN))
@@ -85,4 +85,4 @@ class HelloWorld(toga.App):
         )
 
 def main():
-    return HelloWorld()
+    return RunIntervals()

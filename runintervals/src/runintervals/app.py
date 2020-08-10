@@ -79,6 +79,9 @@ class RunIntervals(toga.App):
         self.main_window.content = main_box
         self.main_window.show()
 
+        self.countDown
+
+
     def runInt(self, widget):
         if self.runIntInput.value:
             runsNumber = self.runIntInput.value
@@ -111,6 +114,11 @@ class RunIntervals(toga.App):
             'Hi there!',
             "Your breaks will be {} minute(s) long.".format(breaksLength)
         )
+
+    def countDown(self):
+        while runsNumber > 0:
+            print("run for {} minutes.").format(runsNumber)
+            runsNumber -= 1
 
 def main():
     return RunIntervals()

@@ -29,6 +29,7 @@ class RunIntervals(toga.App):
             on_press=self.runInt,
             style=Pack(padding=5)
         )
+        runNums = self.runInt
 
         #how long each interval  
         runLengthLabel = toga.Label(
@@ -91,9 +92,10 @@ class RunIntervals(toga.App):
         main_box.add(breakLengthBox)
         main_box.add(breakLengthButton)
 
-        if self.runIntInput.value and self.runLengthInput.value and self.breakLengthInput.value:
-            main_box.add(startBox)
-            main_box.add(startButton)
+        
+#        if runNums: # and self.runLengthInput.value and self.breakLengthInput.value:
+        main_box.add(startBox)
+        main_box.add(startButton)
 
         self.main_window = toga.MainWindow(title=self.formal_name)
         self.main_window.content = main_box
@@ -137,8 +139,8 @@ class RunIntervals(toga.App):
         return breaksLength
 
     def start(self, widget):
-        if runsNumber:
-            loopNum = runsNumber
+        if runNums:
+            loopNum = runNums
         while loopNum > 0:
             print("run for {} minutes.").format(loopNum)
             loopNum -= 1

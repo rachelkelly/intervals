@@ -64,6 +64,22 @@ class RunIntervals(toga.App):
             on_press=self.breakLength,
             style=Pack(padding=5)
         )
+
+        #Start button
+        # if values for all of the above, then Start button
+        startLabel = toga.Label(
+            'Start!',
+            style=Pack(padding=(0, 5))
+        )
+        startBox = toga.Box(style=Pack(direction=ROW, padding=5))
+        startBox.add(startLabel)
+
+        startButton = toga.Button(
+            'Start!',
+            on_press=self.start,
+            style=Pack(padding=5)
+        )
+        
         
 
         main_box.add(runIntBox)
@@ -75,11 +91,13 @@ class RunIntervals(toga.App):
         main_box.add(breakLengthBox)
         main_box.add(breakLengthButton)
 
+        if self.runIntInput.value and self.runLengthInput.value and self.breakLengthInput.value:
+            main_box.add(startBox)
+            main_box.add(startButton)
+
         self.main_window = toga.MainWindow(title=self.formal_name)
         self.main_window.content = main_box
         self.main_window.show()
-
-        self.countDown
 
 
     def runInt(self, widget):
@@ -92,6 +110,7 @@ class RunIntervals(toga.App):
             'Hi there!',
             "You will be running {} intervals today.".format(runsNumber)
         )
+        return runsNumber
 
     def runLength(self, widget):        
         if self.runLengthInput.value:
@@ -103,6 +122,7 @@ class RunIntervals(toga.App):
             'Hi there!',
             "You will be running each interval at {} minutes.".format(runsLength)
         )
+        return runsLength
 
     def breakLength(self, widget):
         if self.breakLengthInput.value:
@@ -114,11 +134,14 @@ class RunIntervals(toga.App):
             'Hi there!',
             "Your breaks will be {} minute(s) long.".format(breaksLength)
         )
+        return breaksLength
 
-    def countDown(self):
-        while runsNumber > 0:
-            print("run for {} minutes.").format(runsNumber)
-            runsNumber -= 1
+    def start(self, widget):
+        if runsNumber:
+            loopNum = runsNumber
+        while loopNum > 0:
+            print("run for {} minutes.").format(loopNum)
+            loopNum -= 1
 
 def main():
     return RunIntervals()

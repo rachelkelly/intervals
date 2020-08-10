@@ -12,6 +12,8 @@ class RunIntervals(toga.App):
         main_box = toga.Box(style=Pack(direction=COLUMN))
 
         # for each input, must have toga.Label, toga.TextInput, toga.Button, & then add to main_box
+
+        #how many intervals
         runIntLabel = toga.Label(
                 'How many intervals to run? Hit Submit to use default of 5 total: ',
             style=Pack(padding=(0, 5))
@@ -47,7 +49,22 @@ class RunIntervals(toga.App):
 
 
         #how long are breaks
+        breakLengthLabel = toga.Label(
+            'How long should breaks between runs be?  Hit Submit to use default of 1 minute: ',
+            style=Pack(padding=(0, 5))
+        )
+        self.breakLengthInput = toga.TextInput(style=Pack(flex=1))
 
+        breakLengthBox = toga.Box(style=Pack(direction=ROW, padding=5))
+        breakLengthBox.add(breakLengthLabel)
+        breakLengthBox.add(self.breakLengthInput)
+
+        breakLengthButton = toga.Button(
+            'Submit',
+            on_press=self.breakLength,
+            style=Pack(padding=5)
+        )
+        
 
         main_box.add(runIntBox)
         main_box.add(runIntButton)
@@ -55,8 +72,8 @@ class RunIntervals(toga.App):
         main_box.add(runLengthBox)
         main_box.add(runLengthButton)
 
-        #main_box.add(breakLengthBox)
-        #main_box.add(breakLengthButton)
+        main_box.add(breakLengthBox)
+        main_box.add(breakLengthButton)
 
         self.main_window = toga.MainWindow(title=self.formal_name)
         self.main_window.content = main_box
@@ -82,6 +99,17 @@ class RunIntervals(toga.App):
         self.main_window.info_dialog(
             'Hi there!',
             "You will be running each interval at {} minutes.".format(runsLength)
+        )
+
+    def breakLength(self, widget):
+        if self.breakLengthInput.value:
+            breaksLength = self.breakLengthInput.value
+        else:
+            breaksLength = 1
+
+        self.main_window.info_dialog(
+            'Hi there!',
+            "Your breaks will be {} minute(s) long.".format(breaksLength)
         )
 
 def main():

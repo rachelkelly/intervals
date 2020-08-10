@@ -1,6 +1,8 @@
 """
-My first application
+Run Intervals.  Takes 3 values from user, counts down intervals.
 """
+import time
+
 import toga
 from toga.style import Pack
 from toga.style.pack import COLUMN, ROW

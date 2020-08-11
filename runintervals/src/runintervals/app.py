@@ -111,6 +111,7 @@ class RunIntervals(toga.App):
             'Hi there!',
             "You will be running {} intervals today.".format(runsNumber)
         )
+        return runsNumber
 
     def runLength(self, widget):        
         if self.runLengthInput.value:
@@ -135,12 +136,22 @@ class RunIntervals(toga.App):
         )
 
     def start(self, widget):
-        loopNum = 5
+        loopNum = self.runInt # fails
+        intSeconds = loopNum * 60 # seconds
+        walkinglength = self.breakLength
+        breakSeconds = walkinglength * 60 # seconds
         while loopNum > 0:
+            print("run for {} minutes").format(loopNum)
+            time.sleep(intSeconds)
             self.main_window.info_dialog(
                 'Message',
                 "Run for {} minutes.".format(loopNum)
             )
+            if loopNum == 1:
+                print("you are done")
+            else:
+                print("walking")
+                time.sleep(breakSeconds)
             loopNum -= 1
 
 def main():

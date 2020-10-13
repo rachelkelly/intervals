@@ -11,16 +11,30 @@ from toga.style.pack import COLUMN, ROW
 class RunIntervals(toga.App):
 
     def __init__(self, runsNumber=5, runsLength=5, breakLength=1):
+        """
+        Instantiate runsNumber, runsLength, & breakLength, so these can be
+        taken from the user.
+        These values are the only vars in scope throughout the class
+        """
         self.runsNumber = runsNumber
         self.runsLength = runsLength
         self.breakLength = breakLength
 
     def startup(self):
+        """
+        Define box & visual elements.
+
+        For each individual input, must have:
+         a) toga.Label
+         b) toga.TextInput
+         c) toga.Button
+         d) add the above attributes to main_box
+
+        Take values from user or use defaults, add to main_box
+        """
         main_box = toga.Box(style=Pack(direction=COLUMN))
 
-        # for each input, must have toga.Label, toga.TextInput, toga.Button, & then add to main_box
-
-        #how many intervals
+        # intervals count
         runIntLabel = toga.Label(
                 'How many intervals to run? Hit Submit to use default of 5 total: ',
             style=Pack(padding=(0, 5))
@@ -110,15 +124,21 @@ class RunIntervals(toga.App):
 
 
     def runInt(self, widget):
-        runsNumber = self.runIntInput.value
+        """
+        Output number of intervals
+        """
+        runsNumber = self.runIntInput.value # does this value need to be startup.runIntInput.value?
 
         self.main_window.info_dialog(
             'Hi there!',
             "You will be running {} intervals today.".format(runsNumber)
         )
 
-    def runLength(self, widget):        
-        runsLength = self.runLengthInput.value
+    def runLength(self, widget):
+        """
+        Output length of intervals
+        """
+        runsLength = self.runLengthInput.value # ibid 124 s/runLengthInput
 
         self.main_window.info_dialog(
             'Hi there!',
@@ -126,7 +146,10 @@ class RunIntervals(toga.App):
         )
 
     def breakLength(self, widget):
-        breaksLength = self.breakLengthInput.value
+        """
+        Output length of breaks
+        """
+        breaksLength = self.breakLengthInput.value # ibid 124 s/breakLengthInput
 
         self.main_window.info_dialog(
             'Hi there!',
@@ -134,10 +157,14 @@ class RunIntervals(toga.App):
         )
 
     def start(self, widget):
-        loopNum = runsNumber # fails
+        """
+        Iterate through intervals and breaks, as defined 
+        in runInt(), runLength(), & breakLength()
+        """
+        loopNum = runsNumber # needs to be self.runsNumber?
         intSeconds = loopNum * 60 # seconds
 
-        walkinglength = breaksLength
+        walkinglength = breaksLength # needs to be self.breaksLength?
         breakSeconds = walkinglength * 60 # seconds
 
         while loopNum > 0:

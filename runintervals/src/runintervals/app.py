@@ -127,8 +127,6 @@ class RunIntervals(toga.App):
         """
         Output number of intervals
         """
-        runsNumber = self.runIntInput.value # does this value need to be startup.runIntInput.value?
-
         self.main_window.info_dialog(
             'Hi there!',
             "You will be running {} intervals today.".format(runsNumber)
@@ -138,8 +136,6 @@ class RunIntervals(toga.App):
         """
         Output length of intervals
         """
-        runsLength = self.runLengthInput.value # ibid 124 s/runLengthInput
-
         self.main_window.info_dialog(
             'Hi there!',
             "You will be running each interval at {} minutes.".format(runsLength)
@@ -149,37 +145,36 @@ class RunIntervals(toga.App):
         """
         Output length of breaks
         """
-        breaksLength = self.breakLengthInput.value # ibid 124 s/breakLengthInput
-
         self.main_window.info_dialog(
             'Hi there!',
             "Your breaks will be {} minute(s) long.".format(breaksLength)
         )
 
     def start(self, widget):
-        """
-        Iterate through intervals and breaks, as defined 
-        in runInt(), runLength(), & breakLength()
-        """
-        loopNum = runsNumber # needs to be self.runsNumber?
-        intSeconds = loopNum * 60 # seconds
-
-        walkinglength = breaksLength # needs to be self.breaksLength?
-        breakSeconds = walkinglength * 60 # seconds
-
-        while loopNum > 0:
-            print("run for {} minutes").format(loopNum)
-            time.sleep(intSeconds)
-            self.main_window.info_dialog(
-                'Message',
-                "Run for {} minutes.".format(loopNum)
-            )
-            if loopNum == 1:
-                print("you are done")
-            else:
-                print("walking")
-                time.sleep(breakSeconds)
-            loopNum -= 1
+        pass
+#        """
+#        Iterate through intervals and breaks, as defined 
+#        in runInt(), runLength(), & breakLength()
+#        """
+#        loopNum = runsNumber # needs to be self.runsNumber?
+#        intSeconds = loopNum * 60 # seconds
+#
+#        walkinglength = breaksLength # needs to be self.breaksLength?
+#        breakSeconds = walkinglength * 60 # seconds
+#
+#        while loopNum > 0:
+#            print("run for {} minutes").format(loopNum)
+#            time.sleep(intSeconds)
+#            self.main_window.info_dialog(
+#                'Message',
+#                "Run for {} minutes.".format(loopNum)
+#            )
+#            if loopNum == 1:
+#                print("you are done")
+#            else:
+#                print("walking")
+#                time.sleep(breakSeconds)
+#            loopNum -= 1
 
 def main():
     return RunIntervals()

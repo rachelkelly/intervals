@@ -33,7 +33,6 @@ class RunIntervals(toga.App):
             style=Pack(padding=(0, 5))
         )
         self.runIntInput = toga.TextInput(style=Pack(flex=1))
-        runsNumber = self.runIntInput.value
 
         runIntBox = toga.Box(style=Pack(direction=ROW, padding=5))
         runIntBox.add(runIntLabel)
@@ -45,13 +44,13 @@ class RunIntervals(toga.App):
             style=Pack(padding=5)
         )
 
+
         #how long each interval  
         runLengthLabel = toga.Label(
             'How long should each running interval be?  Hit Submit to use default of 5 minutes: ',
             style=Pack(padding=(0, 5))
         )
         self.runLengthInput = toga.TextInput(style=Pack(flex=1))
-        runsLength = self.runLengthInput.value
 
         runLengthBox = toga.Box(style=Pack(direction=ROW, padding=5))
         runLengthBox.add(runLengthLabel)
@@ -70,7 +69,6 @@ class RunIntervals(toga.App):
             style=Pack(padding=(0, 5))
         )
         self.breakLengthInput = toga.TextInput(style=Pack(flex=1))
-        breaksLength = self.breakLengthInput.value
 
         breakLengthBox = toga.Box(style=Pack(direction=ROW, padding=5))
         breakLengthBox.add(breakLengthLabel)
@@ -120,6 +118,7 @@ class RunIntervals(toga.App):
         """
         Output number of intervals
         """
+        runsNumber = self.runIntInput.value
         self.main_window.info_dialog(
             'Hi there!',
             "You will be running {} intervals today.".format(runsNumber)
@@ -129,6 +128,7 @@ class RunIntervals(toga.App):
         """
         Output length of intervals
         """
+        runsLength = self.runLengthInput.value
         self.main_window.info_dialog(
             'Hi there!',
             "You will be running each interval at {} minutes.".format(runsLength)
@@ -138,6 +138,7 @@ class RunIntervals(toga.App):
         """
         Output length of breaks
         """
+        breaksLength = self.breakLengthInput.value
         self.main_window.info_dialog(
             'Hi there!',
             "Your breaks will be {} minute(s) long.".format(breaksLength)

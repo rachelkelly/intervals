@@ -29,7 +29,7 @@ class RunIntervals(toga.App):
 
         # intervals count
         runIntLabel = toga.Label(
-                'How many intervals to run? Hit Submit to use default of 5 total: ',
+                "How many intervals to run? Hit Submit to use default of 5 total:",
             style=Pack(padding=(0, 5))
         )
         self.runIntInput = toga.TextInput(style=Pack(flex=1))
@@ -47,7 +47,7 @@ class RunIntervals(toga.App):
 
         #how long each interval  
         runLengthLabel = toga.Label(
-            'How long should each running interval be?  Hit Submit to use default of 5 minutes: ',
+            'How long should each running interval be?  Hit Submit to use default of 5 minutes:',
             style=Pack(padding=(0, 5))
         )
         self.runLengthInput = toga.TextInput(style=Pack(flex=1))
@@ -149,32 +149,50 @@ class RunIntervals(toga.App):
         Iterate through intervals and breaks, as defined 
         in runInt(), runLength(), & breakLength()
         """
-        runsNumber = self.runIntInput.value # should not have to repeat this.
-        loopNum = int(runsNumber)
-        intSeconds = loopNum * 60 # seconds
+        runsNumber = int(self.runIntInput.value) # should not have to repeat this.
+
+        runsLength = int(self.runLengthInput.value)
+        loopNum = runsNumber
+        intSeconds = runsLength * 60 # seconds
 
         breaksLength = self.breakLengthInput.value # ibid 152
         walkinglength = int(breaksLength)
         breakSeconds = walkinglength * 60 # seconds
 
+        # TTS: "Warm up, brisk walk for 5 minutes"
+
+        # DELETE
+        print("loopNum: {}".format(loopNum))
+        print("interval seconds: {}".format(intSeconds))
+        print("break seconds: {}".format(breakSeconds))
+
         while loopNum > 0:
-            self.main_window.info_dialog(
-                'Message',
-                "Run for {} minutes.".format(loopNum)
-            )
+            #self.main_window.info_dialog(
+            #    'Message',
+            #    "Run for {} minutes.".format(loopNum)
+            #)
+            # TODO: text to speech "Run for {} minutes.".format(loopNum)
+            #   - would love to add two fast beeps before TTS
+            print('\a')
             time.sleep(intSeconds)
             if loopNum == 1:
-                self.main_window.info_dialog(
-                    'Message',
-                    "You're done!"
-                )
+            #    self.main_window.info_dialog(
+            #        'Message',
+            #        "You're done!"
+            #    )
+            # TODO: text to speech "You're done!  Great job!"
+                print() 
             else:
-                self.main_window.info_dialog(
-                    'Message',
-                    "You're walking"
-                )
+                #self.main_window.info_dialog(
+                #    'Message',
+                #    "You're walking"
+                #)
+                # TODO: TTS "You're walking"
+                #  - ideally one long beep before TTS
                 time.sleep(breakSeconds)
             loopNum -= 1
+
+        # TTS: "Cool down, walk and chill out and stretch for 5 minutes.  Take it easy and eat something delicious that you love."
 
 def main():
     return RunIntervals()

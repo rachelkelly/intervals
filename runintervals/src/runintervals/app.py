@@ -145,30 +145,36 @@ class RunIntervals(toga.App):
         )
 
     def start(self, widget):
-        pass
-#        """
-#        Iterate through intervals and breaks, as defined 
-#        in runInt(), runLength(), & breakLength()
-#        """
-#        loopNum = runsNumber # needs to be self.runsNumber?
-#        intSeconds = loopNum * 60 # seconds
-#
-#        walkinglength = breaksLength # needs to be self.breaksLength?
-#        breakSeconds = walkinglength * 60 # seconds
-#
-#        while loopNum > 0:
-#            print("run for {} minutes").format(loopNum)
-#            time.sleep(intSeconds)
-#            self.main_window.info_dialog(
-#                'Message',
-#                "Run for {} minutes.".format(loopNum)
-#            )
-#            if loopNum == 1:
-#                print("you are done")
-#            else:
-#                print("walking")
-#                time.sleep(breakSeconds)
-#            loopNum -= 1
+        """
+        Iterate through intervals and breaks, as defined 
+        in runInt(), runLength(), & breakLength()
+        """
+        runsNumber = self.runIntInput.value # should not have to repeat this.
+        loopNum = int(runsNumber)
+        intSeconds = loopNum * 60 # seconds
+
+        breaksLength = self.breakLengthInput.value # ibid 152
+        walkinglength = int(breaksLength)
+        breakSeconds = walkinglength * 60 # seconds
+
+        while loopNum > 0:
+            self.main_window.info_dialog(
+                'Message',
+                "Run for {} minutes.".format(loopNum)
+            )
+            time.sleep(intSeconds)
+            if loopNum == 1:
+                self.main_window.info_dialog(
+                    'Message',
+                    "You're done!"
+                )
+            else:
+                self.main_window.info_dialog(
+                    'Message',
+                    "You're walking"
+                )
+                time.sleep(breakSeconds)
+            loopNum -= 1
 
 def main():
     return RunIntervals()

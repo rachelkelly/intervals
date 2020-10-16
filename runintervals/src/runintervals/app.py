@@ -1,6 +1,9 @@
 """
 Run Intervals.  Takes 3 values from user, counts down intervals.
+
+wanted: Data class that holds state
 """
+from datetime import timedelta
 import time
 
 import toga
@@ -10,7 +13,9 @@ from toga.style.pack import COLUMN, ROW
 
 class RunIntervals(toga.App):
     """
-    __init__ values in __init__.py
+    __init__ values in __init__.py:
+    runsNumber=5, runsLength=5, breakLength=1, 
+    currentStatus='inactive', displayTime=0, runStartTime=0
     """
 
     def startup(self):
@@ -21,11 +26,11 @@ class RunIntervals(toga.App):
          a) toga.Label
          b) toga.TextInput
          c) toga.Button
-         d) add the above attributes to main_box
+         d) add the above attributes to mainBox
 
-        Take values from user or use defaults, add to main_box
+        Take values from user or use defaults, add to mainBox
         """
-        main_box = toga.Box(style=Pack(direction=COLUMN))
+        mainBox = toga.Box(style=Pack(direction=COLUMN))
 
         # intervals count
         runIntLabel = toga.Label(
@@ -96,21 +101,27 @@ class RunIntervals(toga.App):
         )
 
 
-        main_box.add(runIntBox)
-        main_box.add(runIntButton)
+        mainBox.add(runIntBox)
+        mainBox.add(runIntButton)
         
-        main_box.add(runLengthBox)
-        main_box.add(runLengthButton)
+        mainBox.add(runLengthBox)
+        mainBox.add(runLengthButton)
 
-        main_box.add(breakLengthBox)
-        main_box.add(breakLengthButton)
+        mainBox.add(breakLengthBox)
+        mainBox.add(breakLengthButton)
 
         # would like to refresh and only display this once all 3 values have been entered
-        main_box.add(startBox)
-        main_box.add(startButton)
+        mainBox.add(startBox)
+        mainBox.add(startButton)
+
+        if currentStatus == "active":
+            # only start displaying timer stuff if currentStatus is valid
+            mainBox.add(timeBox)
+            pass
+
 
         self.main_window = toga.MainWindow(title=self.formal_name)
-        self.main_window.content = main_box
+        self.main_window.content = mainBox
         self.main_window.show()
 
 
@@ -144,11 +155,34 @@ class RunIntervals(toga.App):
             "Your breaks will be {} minute(s) long.".format(breaksLength)
         )
 
+    def mainTimer(self, toWait):
+        """
+        Timer to display to window.  Does not care what kind of timer it is.
+        this will output a time, calculated dynamically based on runStartTime
+        """
+        return timedelta(seconds='toWait')
+
+    def displayTimer(self):
+        """
+        just to display mainTimer output, not calculate it
+        does this need mainBox?
+        """
+        timeLabel = toga.Label(
+            "Seconds left: {}".format(mainTimer(displayTime)),
+            style=Pack(padding=(0, 5))
+        )
+        timeBox = toga.Box(style=Pack(direction=ROW, padding=5))
+        timeBox.add(timeLabel)
+       
+
     def start(self, widget):
         """
         Iterate through intervals and breaks, as defined 
         in runInt(), runLength(), & breakLength()
         """
+        runStartTime = time.time()
+        currentStatus = "active"
+
         runsNumber = int(self.runIntInput.value) # should not have to repeat this.
 
         runsLength = int(self.runLengthInput.value)
@@ -167,26 +201,24 @@ class RunIntervals(toga.App):
         print("break seconds: {}".format(breakSeconds))
 
         while loopNum > 0:
-            #self.main_window.info_dialog(
-            #    'Message',
-            #    "Run for {} minutes.".format(loopNum)
-            #)
-            # TODO: text to speech "Run for {} minutes.".format(loopNum)
-            #   - would love to add two fast beeps before TTS
-            print('\a')
-            time.sleep(intSeconds)
+            runLabel = toga.Label(
+                   "You are running",
+                style=Pack(padding=(0, 5))
+                )
+            runLabelBox = toga.Box(style=Pack(direction=ROW, padding=5))
+            runLabelBox.add(runLabel)
+            mainBox.add(runLabelBox)
+ 
+            mainTimer(intSeconds)
+
+           
             if loopNum == 1:
-            #    self.main_window.info_dialog(
-            #        'Message',
-            #        "You're done!"
-            #    )
-            # TODO: text to speech "You're done!  Great job!"
+                # create Label that says "you're done!" and add it to mainBox
+                # TODO: text to speech "You're done!  Great job!"
                 print() 
             else:
-                #self.main_window.info_dialog(
-                #    'Message',
-                #    "You're walking"
-                #)
+                # create Label that says "you're walking" and add it to mainBox
+                mainTimer(breakSeconds)
                 # TODO: TTS "You're walking"
                 #  - ideally one long beep before TTS
                 time.sleep(breakSeconds)
